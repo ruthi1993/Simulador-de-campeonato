@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Simulador F1 - 3 pilotos (2025)</title>
+<style>
+  :root{
+    --bg:#050506; --card:#0f1113; --accent:#e10600; --muted:#9ea7b3; --text:#eaf0f6;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter, system-ui, Arial, sans-serif;
+    background:linear-gradient(180deg,#050506,#0b0b0c);
+    color:var(--text);
+    padding:18px}
+  h1{
+    color:var(--accent);
+    text-align:center;
+    margin:6px 0 18px 0}
+  .layout{
+    max-width:1100px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 380px;gap:16px}
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    padding:14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.03)}
+  .event{
+    margin-bottom:12px;
+    padding:10px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.01)}
+  .event h3{margin:0 0 8px 0;font-size:15px}
+  .row{
+    display:flex;
+    gap:6px;
+    align-items:center;
+    margin-bottom:4px}
+  label{
+    min-width:120px;
+    color:var(--muted);
+    font-size:12px}
+  select{
+    flex:1;
+    padding:6px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.05);
+    background:transparent;color:inherit}
+  button{background:var(--accent);border:none;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
+  button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03)}
+  th{color:var(--muted);font-size:13px}
+  .muted{color:var(--muted);font-size:13px}
+  .podium-wrap{margin-top:12px}
+  /* Podio horizontal */
+  .podium-container{display:flex;justify-content:center;align-items:flex-end;gap:18px;margin-top:12px}
+  .podium-box{display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .28s ease, filter .28s ease}
+  /* Busca esta sección */
+.podium-step{
+    width:110px;
+    border-radius:10px 10px 0 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    color:var(--accent);
+    background:var(--card);
+    border:2px solid rgba(255,255,255,0.04);
+    font-size: 32px;}
+  .podium-pos-1 .podium-step{
+    height:250px;
+    background:rgba(225,6,0,0.16);
+    transform:translateY(-18px)}
+  .podium-pos-2 .podium-step{height:170px}
+  .podium-pos-3 .podium-step{height:130px}
+  .podium-image{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    border:3px solid white;
+    object-fit:cover;
+    margin-bottom:-40px;
+    background:#333;
+    transition:width .28s ease, height .28s ease, transform .28s ease}
+  .podium-pos-1 .podium-image{
+    width:130px;
+    height:130px;
+    transform:translateY(-6px)}
+  .podium-name{margin-top:10px;font-weight:700}
+  .podium-info{font-size:13px;color:var(--muted)}
+  /* animación cuando cambia */
+  .pulse{animation:pulseScale .45s ease;}
+  @keyframes pulseScale{0%{transform:scale(0.96)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+  @media(max-width:980px){.layout{grid-template-columns:1fr}.podium-step{width:90px}.podium-pos-1 .podium-step{height:140px}}
+  select {
+  background-color: #111;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+select option {
+  background-color: #111;
+  color: white;
+}
+
+</style>
+</head>
+<body>
+  <h1>Simulador Campeonato — 3 pilotos</h1>
+
+  <div class="layout">
+    <!-- LEFT: controles -->
+    <div class="card" id="leftCard">
+      <h2 style="margin-top:0">Seleccioná posiciones por evento</h2>
+      <div class="muted" style="margin-bottom:10px">Carrera: 1–10 suman puntos (25..1). 11–20 = 0 puntos. Sprint: 1–8 suman (8..1). 9–20 = 0 puntos. Las victorias solo cuentan si son en carreras.</div>
+
+      <!-- Eventos renderizados por JS -->
+      <div id="eventsList"></div>
+
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button id="clearBtn" class="secondary">Limpiar posiciones</button>
+        <button id="autoBtn" class="secondary">Ejemplo rápido</button>
+        <button id="exportBtn">Exportar JSON</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: tabla y podio -->
+    <div class="card">
+      <h2 style="margin-top:0">Tabla del Campeonato</h2>
+      <table>
+        <thead><tr><th>Piloto</th><th>Puntos</th><th>Victorias (carreras)</th></tr></thead>
+        <tbody id="standingsBody"></tbody>
+      </table>
+
+      <div class="podium-wrap">
+        <h3 style="margin:10px 0 6px 0">Podio (líder en el centro)</h3>
+        <div id="podium" class="podium-container"></div>
+      </div>
+
+      <div style="margin-top:10px" class="muted" id="summary"></div>
+    </div>
+  </div>
+
+<script>
+/* --------- Configuración inicial (datos base hasta 24/10/2025) --------- */
+const pilots = [
+  {
+    id: 'verstappen',
+    name: 'Max Verstappen',
+    team: 'Red Bull',
+    basePoints: 321,
+    baseWins: 5,
+    points: 0,
+    wins: 0,
+    imgUrl: 'https://i.ibb.co/VWLdQwhf/Verstappen.jpg'
+  },
+  {
+    id: 'norris',
+    name: 'Lando Norris',
+    team: 'McLaren',
+    basePoints: 357,
+    baseWins: 6,
+    points: 0,
+    wins: 0,
+    imgUrl: 'https://i.ibb.co/jv621jZ0/Norris.jpg'
+  },
+  {
+    id: 'piastri',
+    name: 'Oscar Piastri',
+    team: 'McLaren',
+    basePoints: 356,
+    baseWins: 7,
+    points: 0,
+    wins: 0,
+    imgUrl: 'https://i.ibb.co/tGw36PM/Piastri.jpg'
+  }
+];
+
+const racePoints = [25,18,15,12,10,8,6,4,2,1]; // 1..10
+const sprintPoints = [8,7,6,5,4,3,2,1]; // 1..8
+
+// Eventos restantes (con emoji de bandera)
+const events = [
+  { id:'sprint_brasil', label:'🇧🇷 Sprint Brasil', type:'sprint' },
+  { id:'brasil',        label:'🇧🇷 GP Brasil',     type:'race'   },
+  { id:'lasvegas',      label:'🇺🇸 GP Las Vegas',  type:'race'   },
+  { id:'sprint_qatar',  label:'🇶🇦 Sprint Qatar',  type:'sprint' },
+  { id:'qatar',         label:'🇶🇦 GP Qatar',      type:'race'   },
+  { id:'abudhabi',      label:'🇦🇪 GP Abu Dhabi',   type:'race'   }
+];
+
+// selections[eventId][pilotId] = string position ('1'..'20' or '')
+const selections = {};
+events.forEach(ev => { selections[ev.id] = {}; pilots.forEach(p => selections[ev.id][p.id] = ''); });
+
+/* --------- Render controles (selects) --------- */
+const eventsList = document.getElementById('eventsList');
+
+function buildControls(){
+  eventsList.innerHTML = '';
+  events.forEach(ev => {
+    const box = document.createElement('div');
+    box.className = 'event';
+    const h = document.createElement('h3'); h.textContent = ev.label + (ev.type==='sprint' ? ' — Sprint' : ' — Carrera');
+    box.appendChild(h);
+
+    pilots.forEach(p => {
+      const row = document.createElement('div'); row.className = 'row';
+      const lbl = document.createElement('label'); lbl.textContent = p.name;
+      const sel = document.createElement('select');
+      sel.dataset.event = ev.id; sel.dataset.pilot = p.id;
+      // opciones  (vacío + 1..20)
+      const optEmpty = document.createElement('option'); optEmpty.value=''; optEmpty.textContent='-'; sel.appendChild(optEmpty);
+      for(let i=1;i<=20;i++){
+        const o = document.createElement('option'); o.value = String(i); o.textContent = String(i);
+        sel.appendChild(o);
+      }
+      sel.addEventListener('change', onSelectChange);
+      row.appendChild(lbl); row.appendChild(sel); box.appendChild(row);
+    });
+
+    eventsList.appendChild(box);
+  });
+}
+
+/* --------- Manejo de selección: evita duplicados (swapping) --------- */
+function onSelectChange(e){
+  const sel = e.target;
+  const evId = sel.dataset.event;
+  const pid = sel.dataset.pilot;
+  const newVal = sel.value; // '' or '1'..'20'
+
+  const otherSelects = [...document.querySelectorAll(`select[data-event="${evId}"]`)];
+  const prevVal = selections[evId][pid] || '';
+
+  if(newVal === prevVal) return;
+
+  // Si la nueva posición es un número (1..20), chequeamos si hay colisión
+  if(newVal !== ''){
+    let collided = null;
+    for(const s of otherSelects){
+      if(s.dataset.pilot !== pid && s.value === newVal){
+        collided = s; break;
+      }
+    }
+    if(collided){
+      // intercambiamos: collided toma prevVal (puede ser ''), y su DOM value se actualiza
+      collided.value = prevVal;
+      selections[evId][collided.dataset.pilot] = prevVal;
+    }
+  }
+
+  selections[evId][pid] = newVal;
+  // actualizamos inmediatamente la tabla y el podio
+  updateStandings();
+}
+
+/* --------- Cálculo de la clasificación --------- */
+function calculateStandingsSorted(){
+  // reset con base
+  pilots.forEach(p => { p.points = p.basePoints || 0; p.wins = p.baseWins || 0; });
+
+  // aplicar cada evento
+  events.forEach(ev => {
+    const scheme = ev.type === 'sprint' ? sprintPoints : racePoints;
+    // map pos->pilot
+    const posMap = {};
+    pilots.forEach(p => {
+      const posStr = selections[ev.id][p.id];
+      if(posStr && posStr !== '') {
+        const pos = parseInt(posStr,10);
+        if(!isNaN(pos)) posMap[pos] = p.id;
+      }
+    });
+    // asignar según el esquema (solo hasta scheme.length). posiciones fuera de rango no suman.
+    for(let pos=1; pos<=scheme.length; pos++){
+      const pid = posMap[pos];
+      if(pid){
+        const pilot = pilots.find(x=>x.id===pid);
+        pilot.points += scheme[pos-1];
+        // victorias solo si es carrera y pos === 1
+        if(ev.type === 'race' && pos === 1) pilot.wins += 1;
+      }
+    }
+    // posiciones > scheme.length (ej. 11..20 en carrera o 9..20 en sprint) no suman puntos ni victorias
+  });
+
+  // ordenar por puntos desc, luego victorias desc (victorias solo de carreras)
+  const sorted = [...pilots].sort((a,b) => {
+    if(b.points !== a.points) return b.points - a.points;
+    return b.wins - a.wins;
+  });
+  return sorted;
+}
+
+/* --------- Render tabla y podio (el podio centra al líder) --------- */
+const standingsBody = document.getElementById('standingsBody');
+const podiumEl = document.getElementById('podium');
+const summaryEl = document.getElementById('summary');
+
+function renderTableAndPodium(){
+  const sorted = calculateStandingsSorted();
+
+  // tabla
+  standingsBody.innerHTML = '';
+  sorted.forEach(p => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><strong>${p.name}</strong></td><td>${p.points}</td><td>${p.wins}</td>`;
+    standingsBody.appendChild(tr);
+  });
+
+  // podio: queremos [2° , 1° , 3°] (visual) donde el primero está en el centro
+  const first = sorted[0] || pilots[0];
+  const second = sorted[1] || pilots[1];
+  const third = sorted[2] || pilots[2];
+
+  // construimos en ese orden: left=second, center=first, right=third
+  const order = [second, first, third];
+
+  // animación: añadimos clase 'pulse' al podio antes de reemplazar para efecto visual
+  podiumEl.querySelectorAll('*').forEach(n => n.classList.remove('pulse'));
+
+  podiumEl.innerHTML = '';
+  order.forEach((p, idx) => {
+    if(!p) return;
+    const posClass = idx === 1 ? 'podium-pos-1' : (idx === 0 ? 'podium-pos-2' : 'podium-pos-3');
+    const box = document.createElement('div');
+    box.className = `podium-box ${posClass} pulse`;
+    // icono medalla opcional
+    const medal = idx === 1 ? '🥇' : (idx === 0 ? '🥈' : '🥉');
+    // ↓↓↓ ESTA LÍNEA FUE CORREGIDA: se cambió p.img por p.imgUrl ↓↓↓
+    box.innerHTML = `
+      <img src="${p.imgUrl}" alt="${p.name}" class="podium-image">
+      <div class="podium-step">${medal}</div>
+      <div class="podium-name">${p.name}</div>
+      <div class="podium-info">${p.points} pts • ${p.wins} vict.</div>
+    `;
+    podiumEl.appendChild(box);
+    // pequeña pausa para animación de escala (repaint)
+    setTimeout(()=> box.classList.remove('pulse'), 500);
+  });
+
+  // summary textual
+  summaryEl.innerHTML = sorted.map((p,i)=>`${i+1}. <strong>${p.name}</strong> — ${p.points} pts (${p.wins} vict.)`).join('<br>');
+}
+// ... El resto del código continúa igual
+
+
+/* --------- Helpers de UI (limpiar, ejemplo, export) --------- */
+function updateStandings(){ renderTableAndPodium(); }
+
+function clearSelections(){
+  events.forEach(ev => {
+    pilots.forEach(p => { selections[ev.id][p.id] = ''; });
+  });
+  // reset selects in DOM
+  document.querySelectorAll('#eventsList select').forEach(s => s.value = '');
+  updateStandings();
+}
+
+function autoExample(){
+  // ejemplo simple: permutaciones para que se vean cambios
+  const perms = [
+    ['1','2','3'], ['2','1','3'], ['3','1','2'],
+    ['1','3','2'], ['2','3','1'], ['3','2','1']
+  ];
+  events.forEach((ev, idx) => {
+    const perm = perms[idx % perms.length];
+    pilots.forEach((p,i) => {
+      selections[ev.id][p.id] = perm[i];
+    });
+  });
+  // reflect in DOM
+  document.querySelectorAll('#eventsList select').forEach(sel => {
+    const ev = sel.dataset.event, pid = sel.dataset.pilot;
+    sel.value = selections[ev][pid] || '';
+  });
+  updateStandings();
+}
+
+function exportState(){
+  const data = { pilotsBase: pilots.map(p=>({id:p.id, basePoints:p.basePoints, baseWins:p.baseWins})), selections };
+  const txt = JSON.stringify(data, null, 2);
+  const blob = new Blob([txt], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'simulador_export.json';
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+
+/* --------- Inicialización: construir controles y asignar listeners --------- */
+buildControls();
+updateStandings();
+
+// listeners botones
+document.getElementById('clearBtn').addEventListener('click', ()=>{ if(confirm('Limpiar todas las posiciones?')) clearSelections(); });
+document.getElementById('autoBtn').addEventListener('click', autoExample);
+document.getElementById('exportBtn').addEventListener('click', exportState);
+
+</script>
+</body>
+</html>
