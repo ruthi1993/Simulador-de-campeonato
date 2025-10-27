@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Simulador F1 - 3 pilotos (2025)</title>
+<link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <h1>Simulador Campeonato — Formula 1
+     <div class="layout">
+         <div class="card" id="leftCard">
+            <h2 style="margin-top:0">Seleccioná posiciones por evento</h2>
+            <div class="muted" style="margin-bottom:10px">Carrera: 1–10 suman puntos (25..1). 11–20 = 0 puntos. Sprint: 1–8 suman (8..1). 9–20 = 0 puntos. Las victorias solo cuentan si son en carreras.</div>
+            <div id="eventsList"></div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+        <button id="clearBtn" class="secondary">Limpiar posiciones</button>
+        <button id="autoBtn" class="secondary">Ejemplo rápido</button>
+        <button id="exportBtn">Exportar JSON</button>
+    </div>
+</div>
+    <div class="card">
+        <h2 style="margin-top:0">Tabla del Campeonato</h2>
+        <table>
+            <thead><tr><th>Piloto</th><th>Puntos</th><th>Victorias (carreras)</th></tr></thead>
+            <tbody id="standingsBody"></tbody>
+        </table>
+
+<div class="podium-wrap">
+    <h3 style="margin:10px 0 6px 0">Podio (líder en el centro)</h3>
+    <div id="podium" class="podium-container"></div>
+</div>
+
+<div style="margin-top:10px" class="muted" id="summary"></div>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

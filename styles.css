@@ -1,0 +1,104 @@
+:root{--bg:#050506; --card:#0f1113; --accent:#e10600; --muted:#9ea7b3; --text:#eaf0f6;
+}
+*{box-sizing:border-box}
+body{margin:0;
+    font-family:Inter, system-ui, Arial, sans-serif;
+    background:linear-gradient(180deg,#050506,#0b0b0c);
+    color:var(--text);
+    padding:18px}
+h1{color:var(--accent);
+    text-align:center;
+    margin:6px 0 18px 0}
+.layout{
+    max-width:1100px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 380px;gap:16px}
+.card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    padding:14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.03)}
+.event{
+    margin-bottom:12px;
+    padding:10px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.01)}
+.event h3{margin:0 0 8px 0;font-size:15px}
+.row{
+    display:flex;
+    gap:6px; 
+    align-items:center;
+    margin-bottom:4px}
+label{
+    min-width:95px;
+    color:var(--muted);
+    font-size:12px; /* CORREGIDO */
+}
+select{
+    flex:1;
+    padding:6px; 
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.05);
+    background:transparent;color:inherit}
+button{background:var(--accent);border:none;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
+button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03)}
+th{color:var(--muted);font-size:13px}
+.muted{color:var(--muted);font-size:13px}
+.podium-wrap{margin-top:12px}
+/* Podio horizontal */
+.podium-container{display:flex;justify-content:center;align-items:flex-end;gap:18px;margin-top:12px}
+.podium-box{display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .28s ease, filter .28s ease}
+/* Estilos para los escalones del podio y emojis */
+.podium-step{
+    width:110px;
+    border-radius:10px 10px 0 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    color:var(--accent);
+    background:var(--card);
+    border:2px solid rgba(255,255,255,0.04);
+    font-size: 32px;
+}
+.podium-pos-1 .podium-step{
+    height:250px; 
+    background:rgba(225,6,0,0.16);
+    transform:translateY(-18px)}
+.podium-pos-2 .podium-step{height:170px} 
+.podium-pos-3 .podium-step{height:130px} 
+/* Estilos para las imágenes de los pilotos */
+.podium-image{
+    width:100px; 
+    height:100px;
+    border-radius:50%;
+    border:3px solid white;
+    object-fit:cover;
+    margin-bottom:-50px; 
+    background:#333;
+    transition:width .28s ease, height .28s ease, transform .28s ease}
+.podium-pos-1 .podium-image{
+    width:130px; 
+    height:130px;
+    transform:translateY(-6px)}
+.podium-name{margin-top:10px;font-weight:700}
+.podium-info{font-size:13px;color:var(--muted)}
+/* animación cuando cambia */
+.pulse{animation:pulseScale .45s ease;}
+@keyframes pulseScale{0%{transform:scale(0.96)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+@media(max-width:980px){.layout{grid-template-columns:1fr}.podium-step{width:90px}.podium-pos-1 .podium-step{height:140px}}
+select {
+    background-color: #111;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+select option {
+    background-color: #111;
+    color: white;
+}
