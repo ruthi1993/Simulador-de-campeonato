@@ -1,21 +1,12 @@
 /* --------- Configuración inicial (datos base hasta 24/10/2025) --------- */
 const pilots = [
-  {
-    id: 'verstappen',
-    name: 'Max Verstappen',
-    team: 'Red Bull',
-    basePoints: 321,
-    baseWins: 5,
-    points: 0,
-    wins: 0,
-    imgUrl: 'https://i.ibb.co/VWLdQwhf/Verstappen.jpg'
-  },
+
   {
     id: 'norris',
     name: 'Lando Norris',
     team: 'McLaren',
-    basePoints: 357,
-    baseWins: 6,
+    basePoints: 390,
+    baseWins: 7,
     points: 0,
     wins: 0,
     imgUrl: 'https://i.ibb.co/jv621jZ0/Norris.jpg'
@@ -24,12 +15,22 @@ const pilots = [
     id: 'piastri',
     name: 'Oscar Piastri',
     team: 'McLaren',
-    basePoints: 356,
+    basePoints: 366,
     baseWins: 7,
     points: 0,
     wins: 0,
     imgUrl: 'https://i.ibb.co/tGw36PM/Piastri.jpg'
-  }
+  },
+  {
+    id: 'verstappen',
+    name: 'Max Verstappen',
+    team: 'Red Bull',
+    basePoints: 341,
+    baseWins: 5,
+    points: 0,
+    wins: 0,
+    imgUrl: 'https://i.ibb.co/VWLdQwhf/Verstappen.jpg'
+  },
 ];
 
 const racePoints = [25,18,15,12,10,8,6,4,2,1]; // 1..10
@@ -37,8 +38,6 @@ const sprintPoints = [8,7,6,5,4,3,2,1]; // 1..8
 
 // Eventos restantes (con emoji de bandera)
 const events = [
-  { id:'sprint_brasil', label:'🇧🇷 Sprint Brasil', type:'sprint' },
-  { id:'brasil',        label:'🇧🇷 GP Brasil',     type:'race'   },
   { id:'lasvegas',      label:'🇺🇸 GP Las Vegas',  type:'race'   },
   { id:'sprint_qatar',  label:'🇶🇦 Sprint Qatar',  type:'sprint' },
   { id:'qatar',         label:'🇶🇦 GP Qatar',      type:'race'   },
