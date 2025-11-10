@@ -3,43 +3,115 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Simulador campeonato F1 2025</title>
-<link rel="stylesheet" href="styles.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6808665751523976" crossorigin="anonymous"></script>
+<title>Simulador F1 — Pilotos y Constructores (2025)</title>
+<link rel="stylesheet" href="styles.css"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
-    <h1>Simulador Campeonato — Formula 1</h1>
-     <div class="layout">
-         <div class="card" id="leftCard">
-            <h2 style="margin-top:0">Seleccioná posiciones por evento</h2>
-            <div class="muted" style="margin-bottom:10px">Carrera: 1–10 suman puntos (25..1). 11–20 = 0 puntos. Sprint: 1–8 suman (8..1). 9–20 = 0 puntos. Las victorias solo cuentan si son en carreras.</div>
-            <div id="eventsList"></div>
-    <div style="display:flex;gap:8px;margin-top:8px">
+  <h1>Simulador de Campeonato — Fórmula 1</h1>
+  <div class="layout">
+
+<!-- SIMULADOR DE PILOTOS -->
+
+    <div class="card" id="leftCard">
+      <h2 style="margin-top:0">Simulador de Pilotos</h2>
+      <div class="muted" style="margin-bottom:10px">
+        Carrera: 1–10 suman puntos (25..1). Sprint: 1–8 suman (8..1).  
+        Las victorias solo cuentan si son en carreras.
+      </div>
+      <div id="eventsList"></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
         <button id="clearBtn" class="secondary">Limpiar posiciones</button>
         <button id="autoBtn" class="secondary">Ejemplo rápido</button>
-        <button id="exportBtn">Exportar JSON</button>
+      </div>
     </div>
-</div>
+
     <div class="card">
-        <h2 style="margin-top:0">Tabla del Campeonato</h2>
-        <table>
-            <thead><tr><th>Piloto</th><th>Puntos</th><th>Victorias (carreras)</th></tr></thead>
-            <tbody id="standingsBody"></tbody>
-        </table>
+      <h2 style="margin-top:0">Campeonato de Pilotos</h2>
+      <table>
+        <thead><tr><th>Piloto</th><th>Puntos</th><th>Victorias</th></tr></thead>
+        <tbody id="standingsBody"></tbody>
+      </table>
 
-<div class="podium-wrap">
-    <h3 style="margin:10px 0 6px 0">Podio </h3>
-    <div id="podium" class="podium-container"></div>
-</div>
+      <div class="podium-wrap">
+        <h3 style="margin:10px 0 6px 0">Podio </h3>
+        <div id="podium" class="podium-container"></div>
+      </div>
+      <div style="margin-top:10px" class="muted" id="summary"></div>
+    </div> 
+  </div> 
 
-<div style="margin-top:10px" class="muted" id="summary"></div>
-</div>
-</div>
+  <!-- SIMULADOR DE CONSTRUCTORES -->
+
+  <div class="layout" style="margin-top:24px">
+    <div class="card" id="teamsCard">
+      <h2 style="margin-top:0">Simulador de Constructores</h2>
+      <div class="muted" style="margin-bottom:10px">
+        McLaren ya es campeón 🏆 — se define el 2º puesto.
+        Max verstappen puede sumar mas puntos que Ferrari
+      </div>
+      <div id="teamEventsList"></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button id="clearTeamsBtn" class="secondary">Limpiar</button>
+        <button id="autoTeamsBtn" class="secondary">Ejemplo rápido</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">Campeonato de Constructores</h2>
+      <table>
+        <thead>
+          <tr><th>Equipo</th><th>Puntos</th><th>Victorias</th></tr>
+        </thead>
+        <tbody id="constructorsBody"></tbody>
+      </table>
+      <div class="muted" style="margin-top:10px" id="constructorsSummary"></div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN QUIÉNES SOMOS -->
+
+<footer class="footer">
+  <div class="footer-content">
+    <h2>
+      <a href="about.html" class="footer-link">Quiénes somos</a>
+    </h2>
+
+  <!--Redes sociales-->
+
+  <div class="social">
+    <a href="https://www.instagram.com/drivethrough.f1" target="_blank" aria-label="Instagram">
+      <i class="fa-brands fa-instagram"></i> 
+    
+    <a href="https://www.threads.com/@drivethrough.f1" target="_blank" aria-label="Instagram">
+      <i class="fa-brands fa-threads"></i>
+
+    </a>
+    <a href="https://x.com/drivethroughf" target="_blank" aria-label="X / Twitter">
+      <i class="fa-brands fa-x-twitter"></i> 
+    </a>
+    <a href="https://www.youtube.com/@drivethrough.f1" target="_blank" aria-label="YouTube">
+      <i class="fa-brands fa-youtube"></i> 
+    </a>
+    <a href="https://kick.com/drivethrough-race" target="_blank" aria-label="Kick">
+      <i class="fa-brands fa-kickstarter"></i> 
+    </a>
+    <a href="https://www.twitch.tv/drivethrough_race" target="_blank" aria-label="Twitch">
+      <i class="fa-brands fa-twitch"></i> 
+    </a>
+  </div>
+
+
+    <div class="muted" style="margin-top:10px">
+      © 2025 Drive Through — Todos los derechos reservados.
+    </div>
+  </div>
+</footer>
+
 
 <script src="script.js"></script>
 </body>
-
 </html>
-
 
 
