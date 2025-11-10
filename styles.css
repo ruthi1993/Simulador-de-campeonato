@@ -41,17 +41,51 @@ select{
     border-radius:8px;
     border:1px solid rgba(255,255,255,0.05);
     background:transparent;color:inherit}
-button{background:var(--accent);border:none;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
-button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit}
-table{width:100%;border-collapse:collapse;margin-top:8px}
-th,td{padding:8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.03)}
-th{color:var(--muted);font-size:13px}
-.muted{color:var(--muted);font-size:13px}
-.podium-wrap{margin-top:12px}
+button{
+    background:var(--accent);
+    border:none;color:#fff;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer}
+button.secondary{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.06);
+    color:inherit}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:8px}
+th,td{
+    padding:8px;
+    text-align:left;
+    border-bottom:1px solid rgba(255,255,255,0.03)}
+th{
+    color:var(--muted);
+    font-size:13px}
+.muted{
+    color:var(--muted);
+    font-size:13px}
+.podium-wrap{
+    margin-top:12px}
+
+
 /* Podio horizontal */
-.podium-container{display:flex;justify-content:center;align-items:flex-end;gap:18px;margin-top:12px}
-.podium-box{display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .28s ease, filter .28s ease}
+
+.podium-container{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:18px;
+    margin-top:12px}
+.podium-box{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    transition:transform .28s ease, filter .28s ease}
+
 /* Estilos para los escalones del podio y emojis */
+
 .podium-step{
     width:110px;
     border-radius:10px 10px 0 0;
@@ -84,10 +118,17 @@ th{color:var(--muted);font-size:13px}
     width:130px; 
     height:130px;
     transform:translateY(-6px)}
-.podium-name{margin-top:10px;font-weight:700}
-.podium-info{font-size:13px;color:var(--muted)}
+.podium-name{
+    margin-top:10px;
+    font-weight:700}
+.podium-info{
+    font-size:13px;
+    color:var(--muted)}
+
 /* animación cuando cambia */
-.pulse{animation:pulseScale .45s ease;}
+
+.pulse{
+    animation:pulseScale .45s ease;}
 @keyframes pulseScale{0%{transform:scale(0.96)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
 @media(max-width:980px){.layout{grid-template-columns:1fr}.podium-step{width:90px}.podium-pos-1 .podium-step{height:140px}}
 select {
@@ -101,4 +142,62 @@ select {
 select option {
     background-color: #111;
     color: white;
+}
+
+/* --------- FOOTER --------- */
+
+/* --------- FOOTER --------- */
+.footer {
+  width: 100%;
+  margin-top: 60px;
+  padding: 30px 10px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius: 0;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-content h2 {
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.footer-content p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 6px auto 14px auto;
+  max-width: 700px;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.social a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.social a:hover {
+  color: var(--accent);
+}
+.footer-link {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.footer-link:hover {
+  color: white;
+  text-decoration: underline;
 }
