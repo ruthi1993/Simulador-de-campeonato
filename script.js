@@ -1,15 +1,15 @@
 /* ------------------ DATOS BASE ------------------ */
 const pilots = [
-  { id:'norris', name:'Lando Norris', team:'McLaren', basePoints:396, baseWins:7, points:0, wins:0, imgUrl:'https://i.ibb.co/jv621jZ0/Norris.jpg' },
-  { id:'piastri', name:'Oscar Piastri', team:'McLaren', basePoints:374, baseWins:7, points:0, wins:0, imgUrl:'https://i.ibb.co/tGw36PM/Piastri.jpg' },
-  { id:'verstappen', name:'Max Verstappen', team:'Red Bull', basePoints:371, baseWins:6, points:0, wins:0, imgUrl:'https://i.ibb.co/VWLdQwhf/Verstappen.jpg' },
+  { id:'norris', name:'Lando Norris', team:'McLaren', basePoints:408, baseWins:7, points:0, wins:0, imgUrl:'https://i.ibb.co/jv621jZ0/Norris.jpg' },
+  { id:'verstappen', name:'Max Verstappen', team:'Red Bull', basePoints:396, baseWins:7, points:0, wins:0, imgUrl:'https://i.ibb.co/VWLdQwhf/Verstappen.jpg' },
+  { id:'piastri', name:'Oscar Piastri', team:'McLaren', basePoints:392, baseWins:7, points:0, wins:0, imgUrl:'https://i.ibb.co/tGw36PM/Piastri.jpg' },
 ];
 
 const teams = [
-  { id:'mclaren', name:'McLaren', basePoints:770, baseWins:14 },
-  { id:'mercedes', name:'Mercedes', basePoints:441, baseWins:2 },
-  { id:'redbull', name:'Red Bull', basePoints:400, baseWins:6 },
-  { id:'ferrari', name:'Ferrari', basePoints:378, baseWins:0 },
+  { id:'mclaren', name:'McLaren', basePoints:800, baseWins:14 },
+  { id:'mercedes', name:'Mercedes', basePoints:459, baseWins:2 },
+  { id:'redbull', name:'Red Bull', basePoints:426, baseWins:7 },
+  { id:'ferrari', name:'Ferrari', basePoints:382, baseWins:0 },
 ];
 
 const racePoints = [25,18,15,12,10,8,6,4,2,1];
@@ -17,7 +17,6 @@ const sprintPoints = [8,7,6,5,4,3,2,1];
 
 const events = [
   
-  { id:'qatar', label:'🇶🇦 GP Qatar', type:'race' },
   { id:'abudhabi', label:'🇦🇪 GP Abu Dhabi', type:'race' }
 ];
 
@@ -315,6 +314,7 @@ function autoTeamsExample(){
   });
   buildTeamControls(); renderConstructors();
 }
+
 
 
 
